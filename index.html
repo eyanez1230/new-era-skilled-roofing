@@ -128,22 +128,22 @@
       <div class="col-md-4">
         <div class="service-media"> <img src="img/roofing-1.jpg" alt=" "> </div>
         <div class="service-desc">
-          <h3>Roofing</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
+          <h3>Roof Installation</h3>
+          <p>New Era Skilled Roofing specializes in roof installation no matter the type of structure. We use innovative roofing systems to address any roofing challenge and come up wit the best and most cost-effective solution.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="service-media"> <img src="img/roofing-2.jpg" alt=" "> </div>
         <div class="service-desc">
           <h3>Roof Repairs</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
+          <p>We are an experienced and professional contractor and New Era Skilled Roofing can repair any roof. Wether it is leaking, peeling, or becoming lose, we will ensure your roof is good-as-new when we are done with the project.</p>
         </div>
       </div>
       <div class="col-md-4">
         <div class="service-media"> <img src="img/roofing-3.jpg" alt=" "> </div>
         <div class="service-desc">
           <h3>Roof Inspections</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at.</p>
+          <p>Looking to purchase a new property but unsure of the roof condition? New Era Skilled roofing can help assses the structure and quality of the existing roof. We will generate a detailed report which will outline all the details.</p>
         </div>
       </div>
     </div>
@@ -276,34 +276,6 @@
           </div>
         </div>
       </div>
-      <div class="row"> </div>
-      <div class="col-md-4">
-        <div class="testimonial">
-          <div class="testimonial-image"> <img src="img/testimonials/04.jpg" alt=""> </div>
-          <div class="testimonial-content">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."</p>
-            <div class="testimonial-meta"> - Johnathan Doe </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="testimonial">
-          <div class="testimonial-image"> <img src="img/testimonials/05.jpg" alt=""> </div>
-          <div class="testimonial-content">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."</p>
-            <div class="testimonial-meta"> - John Doe </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="testimonial">
-          <div class="testimonial-image"> <img src="img/testimonials/06.jpg" alt=""> </div>
-          <div class="testimonial-content">
-            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis."</p>
-            <div class="testimonial-meta"> - Johnathan Doe </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -370,7 +342,7 @@
 <!-- Footer Section -->
 <div id="footer">
   <div class="container text-center">
-    <p>&copy; 2017 INNOVA. Design by <a href="http://www.templatewire.com" rel="nofollow">TemplateWire</a></p>
+    <p>&copy; <span id="copyrightYear"></span> New Era Skilled Roofing</p>
   </div>
 </div>
 <script type="text/javascript" src="js/jquery.1.11.1.js"></script> 
@@ -382,3 +354,42 @@
 <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
+
+<script>
+  let date = new Date();
+  $("#copyrightYear").text(date.getFullYear());
+
+  function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+        var indexed_array = {};
+
+        $.map(unindexed_array, function(n, i) {
+            indexed_array[n['name']] = n['value'];
+        });
+
+        return indexed_array;
+  }
+
+  async function sendEmail(data) {
+        const url = "https://vbzxoqlkll.execute-api.us-west-2.amazonaws.com/prod/contact";
+        const response = await fetch(url, {
+            method: 'POST',
+            cache: 'no-cache',
+            headers: {
+                "Content-Type": "application/json",
+                // "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Credentials": true
+            },
+            body: JSON.stringify(data)
+        });
+
+        return response;
+  }
+
+  async function onSubmit() {
+    //TODO: Logic here
+    let form = document.getELementById("contactForm");
+
+    
+  }
+</script>
