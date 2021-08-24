@@ -42,7 +42,7 @@ a {
 }
 a:hover, a:focus {
 	text-decoration: none;
-	color: #e52f3c;
+	color: #DEC703;
 }
 ul, ol {
 	list-style: none;
@@ -98,7 +98,7 @@ hr {
 }
 #menu .phone {
 	font-family: 'Montserrat', sans-serif;
-	margin: 4px 0 0 120px;
+	margin: 4px 0 0 30px;
 	float: left;
 	font-size: 16px;
 	font-weight: 400;
@@ -132,7 +132,7 @@ hr {
 .section-title h2::after {
 	position: absolute;
 	content: "";
-	background-color: #e52f3c;
+	background-color: #DEC703;
 	height: 3px;
 	width: 50px;
 	bottom: -1px;
@@ -141,7 +141,7 @@ hr {
 .btn-custom {
 	text-transform: uppercase;
 	color: #fff;
-	background-color: #e52f3c;
+	background-color: #DEC703;
 	padding: 14px 20px;
 	letter-spacing: 1px;
 	margin: 0;
@@ -243,7 +243,7 @@ header .intro-text {
 #about h2::after {
 	position: absolute;
 	content: "";
-	background-color: #e52f3c;
+	background-color: #DEC703;
 	height: 3px;
 	width: 50px;
 	bottom: -1px;
@@ -502,7 +502,7 @@ color: #777;
 	color: #1f386e;
 }
 #footer a:hover {
-	color: #e52f3c;
+	color: #DEC703;
 }
 
 @media (max-width: 768px) {
