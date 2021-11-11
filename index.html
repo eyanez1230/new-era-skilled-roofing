@@ -328,6 +328,27 @@
   <!-- Contact Section -->
   <div id="contact">
     <div class="container">
+      <!-- <div class="alert alert-success alert-dismissible show" id="messageSuccess" role="alert">
+        Message submitted successfully! Please allow up to 24 hours to review your request.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="alert alert-danger alert-dismissible show" id="validationError" role="alert">
+        Please correct the errors and try again.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="alert alert-danger alert-dismissible show" id="errorMessage" role="alert">
+        There was an error processing your request. Please contact us directly at (626) 570-5408 or
+        dalinwood@hotmail.com
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div> -->
       <div class="col-md-8">
         <div class="row">
           <div class="section-title">
@@ -344,7 +365,8 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="email" id="email" name="email" class="form-control" placeholder="Email" required="required">
+                  <input type="email" id="email" name="email" class="form-control" placeholder="Email"
+                    required="required">
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
@@ -355,7 +377,8 @@
               <p class="help-block text-danger"></p>
             </div>
             <div id="success"></div>
-            <button type="submit" class="g-recaptcha btn btn-custom btn-lg" id="submitContactUsForm" data-callback='onSubmit' data-sitekey="6Lc8VSgdAAAAAPaIHgaNddEDKlUz8wS4NZ8FOC0y">Send Message</button>
+            <button type="submit" class="g-recaptcha btn btn-custom btn-lg" id="submitContactUsForm"
+              data-callback='onSubmit' data-sitekey="6Lc8VSgdAAAAAPaIHgaNddEDKlUz8wS4NZ8FOC0y">Send Message</button>
           </form>
         </div>
       </div>
@@ -392,7 +415,7 @@
       <p>&copy; <span id="copyrightYear"></span> New Era Skilled Roofing</p>
     </div>
   </div>
-  <script type="text/javascript" src="js/jquery.1.11.1.js"></script>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.js"></script>
   <script type="text/javascript" src="js/SmoothScroll.js"></script>
   <script type="text/javascript" src="js/nivo-lightbox.js"></script>
@@ -439,31 +462,31 @@
   }
 
   async function onSubmit() {
-      grecaptcha.execute();
-      let captchaResponse = grecaptcha.getResponse();
-      let form = document.getElementById('contactForm');
+    grecaptcha.execute();
+    let captchaResponse = grecaptcha.getResponse();
+    let form = document.getElementById('contactForm');
 
-      if (form.checkValidity() === false || captchaResponse === "") {
-        form.classList.add('was-validated');
-        $("#validationError").fadeIn();
+    if (form.checkValidity() === false || captchaResponse === "") {
+      form.classList.add('was-validated');
+      $("#validationError").fadeIn();
+    } else {
+      $("#errorMessage").hide();
+      $("#validationError").hide();
+      let contactUsForm = $("#contactForm");
+      let data = getFormData(contactUsForm);
+
+      let response = await sendEmail(data);
+
+      if (response.status === 200) {
+        // Handle success
+        $("#messageSuccess").fadeIn();
+        document.getElementById("contactForm").reset();
       } else {
-        $("#errorMessage").hide();
-        $("#validationError").hide();
-        let contactUsForm = $("#contactForm");
-        let data = getFormData(contactUsForm);
-
-        let response = await sendEmail(data);
-
-        if (response.status === 200) {
-            // Handle success
-            $("#messageSuccess").fadeIn();
-            document.getElementById("contactForm").reset();
-        } else {
-            // Handle error
-            $("#errorMessage").fadeIn();
-        }
-
-        grecaptcha.reset();
+        // Handle error
+        $("#errorMessage").fadeIn();
       }
+
+      grecaptcha.reset();
+    }
   }
 </script>
