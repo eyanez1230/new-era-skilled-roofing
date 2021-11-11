@@ -355,7 +355,7 @@
               <p class="help-block text-danger"></p>
             </div>
             <div id="success"></div>
-            <button type="submit" class="g-recaptcha btn btn-custom btn-lg" data-callback='onSubmit' data-sitekey="6Lc8VSgdAAAAAPaIHgaNddEDKlUz8wS4NZ8FOC0y">Send Message</button>
+            <button type="submit" class="g-recaptcha btn btn-custom btn-lg" id="submitContactUsForm" onClick='onSubmit()' data-callback='onSubmit' data-sitekey="6Lc8VSgdAAAAAPaIHgaNddEDKlUz8wS4NZ8FOC0y">Send Message</button>
           </form>
         </div>
       </div>
@@ -397,7 +397,6 @@
   <script type="text/javascript" src="js/SmoothScroll.js"></script>
   <script type="text/javascript" src="js/nivo-lightbox.js"></script>
   <script type="text/javascript" src="js/jqBootstrapValidation.js"></script>
-  <script type="text/javascript" src="js/contact_me.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
@@ -440,33 +439,31 @@
   }
 
   async function onSubmit() {
-        grecaptcha.execute();
-        let captchaResponse = grecaptcha.getResponse();
-        let form = document.getElementById('contactUsForm');
+      grecaptcha.execute();
+      let captchaResponse = grecaptcha.getResponse();
+      let form = document.getElementById('contactForm');
 
-        if (form.checkValidity() === false || captchaResponse === "") {
-            form.classList.add('was-validated');
-            $("#validationError").fadeIn();
+      if (form.checkValidity() === false || captchaResponse === "") {
+        form.classList.add('was-validated');
+        $("#validationError").fadeIn();
+      } else {
+        $("#errorMessage").hide();
+        $("#validationError").hide();
+        let contactUsForm = $("#contactForm");
+        let data = getFormData(contactUsForm);
+
+        let response = await sendEmail(data);
+
+        if (response.status === 200) {
+            // Handle success
+            $("#messageSuccess").fadeIn();
+            document.getElementById("contactForm").reset();
         } else {
-            $("#errorMessage").hide();
-            $("#validationError").hide();
-            let contactUsForm = $("#contactUsForm");
-            let data = getFormData(contactUsForm);
-
-            let response = await sendEmail(data);
-
-            if (response.status === 200) {
-                // Handle success
-                $("#messageSuccess").fadeIn();
-                document.getElementById("contactUsForm").reset();
-            } else {
-                // Handle error
-                $("#errorMessage").fadeIn();
-            }
-
-            grecaptcha.reset();
+            // Handle error
+            $("#errorMessage").fadeIn();
         }
 
-
+        grecaptcha.reset();
+      }
   }
 </script>
